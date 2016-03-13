@@ -1,0 +1,12 @@
+{
+  "nativescript": {
+    "id": "org.nativescript.nativescripttesting",
+    "tns-android": {
+      "version": "1.6.3"
+    }
+  },
+  "dependencies": {
+    "nativescript-webview-interface": "^1.1.1",
+    "tns-core-modules": "1.6.2"
+  }
+}

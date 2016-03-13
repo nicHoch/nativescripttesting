@@ -1,0 +1,9 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+  <StackLayout>
+    <Label text="TopoWebView" src="~www/topo.html"/>
+    <WebView id="topowebview"  width="*" height="300"/>
+    <Label text="App: load topo" />
+    <Button text="1" tap="loadtopo1"  />
+    <Button text="2" tap="loadtopo2"  />
+  </StackLayout>
+</Page>
