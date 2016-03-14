@@ -6,6 +6,7 @@
       "height"            : "640",
       "tid"               : "804310047",
       "viewscale"         : "1.54545454545455",
+      "paddingbottom"     : "padding-bottom: 75.2941176470588%",
       "topodata"          : [
                               {"id":803833314,"type":"route","num":"1","grade":"6a+","class":"gb3","zindex":"3","name":"Susurrar a San Sebastian","stars":"","style":"Sport","order":1,"url": "/climbing/spain/alto-mijares/casucho/route/803833314","points":"121.8 334.4,119.7 295.4,117.1 266.9,111.8 224.7,117.6 179.9,126.6 160.3,139.2 127.6 lower"},
                               {"id":587198676,"type":"route","num":"2","grade":"6a+","class":"gb3","zindex":"3","name":"Rosinante","stars":"★","style":"Sport","order":2,"url": "/climbing/spain/alto-mijares/casucho/route/587198676","points":"152.5 345,158.8 303.5,158.8 259.7,159.8 212.7,174 170.5,179.8 136.8,192 127.8,200.9 104.4 lower"},
@@ -23,6 +24,7 @@
       "height"            : "640",
       "tid"               : "589585560",
       "viewscale"         : "1.74545454545455",
+      "paddingbottom"     : "padding-bottom: 66.6666666666667%",
       "topodata"          : [
                               {"id":587227179,"type":"route","num":"4","grade":"6c","class":"gb3","zindex":"3","name":"El Pinaculo","stars":"","style":"Sport","order":1,"url": "/climbing/spain/alto-mijares/hoz-del-mijares/route/587227179","points":"57.2 305.3,57.2 262.9,64.1 229.7,61.8 205.6,51.5 195.3 lower"},
                               {"id":587228424,"type":"route","num":"10","grade":"7a+","class":"gb3","zindex":"3","name":"Greim","stars":"★★","style":"Sport","order":2,"url": "/climbing/spain/alto-mijares/hoz-del-mijares/route/587228424","points":"137.4 306.5,132.8 272.1,123.7 249.2,136.3 212.5 lower,152.3 189.6,160.3 163.2,160.3 120.8 lower"},
