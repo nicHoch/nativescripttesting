@@ -33,6 +33,18 @@
                               {"id":587232510,"type":"route","num":"25","grade":"4+","class":"gb2","zindex":"4","name":"La bandablanda","stars":"★★","style":"Sport","order":5,"url": "/climbing/spain/alto-mijares/hoz-del-mijares/route/587232510","points":"493.8 348.9,484.6 319.1,473.2 301.9,465.1 285.8 lower"},
                               {"id":587226132,"type":"route","num":"1","grade":"7a+","class":"gb3","zindex":"3","name":"El Luego del Angle","stars":"","style":"Sport","order":6,"url": "/climbing/spain/alto-mijares/hoz-del-mijares/route/587226132","points":""}
                             ]
+    },
+    {
+      "image"             : "./img/topo3.jpg",
+      "width"             : "853",
+      "height"            : "640",
+      "tid"               : "27286824",
+      "viewscale"         : "1.55090909090909",
+      "paddingbottom"     : "padding-bottom: 75.0293%",
+      "topodata"          : [
+        {"id":27283605,"type":"route","num":"1","grade":"V0","class":"gb2","zindex":"4","name":"T-crack","stars":"","style":"Boulder","order":1,"url": "/climbing/australia/gara-gorge/upper-gara-gorge/route/27283605","points":"266 325,271.5 282,256 237.5,245 178,199 127,200.8 98.7"},
+        {"id":27283821,"type":"route","num":"3","grade":"V2","class":"gb3","zindex":"3","name":"Nose","stars":"★","style":"Boulder","order":2,"url": "/climbing/australia/gara-gorge/upper-gara-gorge/route/27283821","points":"84.5 272.5,101 222,154 172"}
+      ]
     }
   ]
 }
