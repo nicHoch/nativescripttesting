@@ -1,0 +1,30 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" navigatedTo="navigatedTo" xmlns:FAB="nativescript-floatingactionbutton">
+     <Page.actionBar>
+    <ActionBar title="{{ title }}">
+     <ActionBar.titleView>
+        <StackLayout orientation="horizontal">
+          <Label text="{{ title }}" textWrap="true" class="name"/>
+          <ActivityIndicator busy="{{ isLoading }}" />
+        </StackLayout>
+      </ActionBar.titleView> 
+    </ActionBar>
+  </Page.actionBar>
+  <GridLayout rows="auto, *"> 
+        <StackLayout row="1">
+            <Label text="{{ route.style }}"/>
+            <Label text="{{ route.height }}"/>
+            <Label text="{{ route.beta[0].markdown }}" textWrap="true"/>
+            <Label text="History" />
+            <ListView items="{{ route.history }}">
+               <ListView.itemTemplate>
+                    <StackLayout orientation="horizontal">
+                        <Label text="{{type}}" />
+                        <Label text="{{date}}" />
+                        <Label text="{{climbers}}" />
+                    </StackLayout>
+                 </ListView.itemTemplate> 
+            </ListView>
+        </StackLayout>
+        <FAB:fab tap="logAscent" visibility="{{ userLogedin ? 'visible' : 'collapsed' }}" rippleColor="#f1f1f1" class="fab-button" row="1" />   
+    </GridLayout>
+</Page>   

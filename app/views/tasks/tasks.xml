@@ -1,0 +1,22 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" unloaded="pageUnloaded" xmlns:PullRefresh="nativescript-pulltorefresh" xmlns:FAB="nativescript-floatingactionbutton">
+    <page.actionBar>
+        <action-bar title="Aktive Tasks: Pull To Refresh & FAB Test" />
+    </page.actionBar>
+    
+    <GridLayout rows="auto, *"> 
+        <PullRefresh:PullToRefresh refresh="refreshList" row="1">    
+            <ListView items="{{ tasks }}" id="taskview" loaded="onLoadedLW" itemTap="showTask">
+                <ListView.itemTemplate>
+                    <GridLayout columns="20,20,150,150,20" rows="40" class="{{ error ? 'error' : '' }}">
+                    <Label col="0" text="{{ name }}" />
+                    <Label col="1" text="{{ status }}" />
+                    <Label col="2" text="{{ created }}"/>
+                    <Label col="3" text="{{ lastTS }}"/>
+                    <Image col="4" src="{{ status == 3 ? 'res://checked' : 'res://unchecked'}}" class="checkbox"/>
+                    </GridLayout>
+                </ListView.itemTemplate> 
+            </ListView>
+        </PullRefresh:PullToRefresh>
+        <FAB:fab tap="fabTap" rippleColor="#f1f1f1" class="fab-button" row="1"/>        
+    </GridLayout>
+</Page>  

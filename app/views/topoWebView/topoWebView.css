@@ -1,3 +1,9 @@
-.toggleColor {
+.selected {
     background-color: green;
+}
+
+.checkbox {
+    margin-right: 0;
+    margin-top: 5;
+    height: 35;
 }

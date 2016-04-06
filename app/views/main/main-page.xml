@@ -2,5 +2,13 @@
   <StackLayout>
     <Button text="WebView Interaction" tap="webViewInteraction" />
     <Button text="Topo in WebView" tap="topoInWebViewAction" />
-  </StackLayout>
+    <Label text="tasks" /> 
+    <Button text="Browse AltoMijares" tap="addTask" />
+    <Button text="View Route" tap="viewRoute" />
+    
+    <Button text="view Tasks" tap="viewTasks" />
+    <Button text="{{loginname, 'Login ('+loginname+')' }}" tap="login" />
+    <Button text="SplitTest" tap="showSplit" />
+    <Button text="Notification" tap="addNoti" />
+  </StackLayout> 
 </Page>

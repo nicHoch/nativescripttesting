@@ -1,0 +1,43 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
+    <page.actionBar>
+        <action-bar title="SplitView Test"   />
+    </page.actionBar>
+        <StackLayout id="splitContainer" orientation="{{ orientation }}">
+            <StackLayout id="splitLeft" height="{{ lHeight, lHeight+'%' }}" width="{{ lWidth , lWidth+'%'}}">
+                <TabView id="tabView" >
+                    <TabView.items>
+                        <TabViewItem title="Info">
+                            <TabViewItem.view>
+                                <Label text="Info L" />
+                            </TabViewItem.view>
+                        </TabViewItem>
+                        <TabViewItem title="Stats">
+                            <TabViewItem.view>
+                                <Label text="Stats L" />
+                            </TabViewItem.view>
+                        </TabViewItem>
+                        <TabViewItem title="Map">
+                            <TabViewItem.view>
+                                <Label text="Map L" />
+                            </TabViewItem.view>
+                        </TabViewItem>
+                        <TabViewItem id="topotab" title="Topo">
+                            <TabViewItem.view>
+                                <StackLayout>
+                                    <WebView swipe="toposwipe" id="topowebview" height="auto" width="*"/> 
+                                </StackLayout>
+                            </TabViewItem.view>
+                        </TabViewItem>
+                    </TabView.items>
+                </TabView> 
+            </StackLayout> 
+            <Button id="splitter" swipe="splitterswipe" pan="splitterpan" text="" height="{{ sHeight, sHeight+'%' }}" width="{{ sWidth , sWidth+'%'}}" />
+            <StackLayout id="splitRight" height="{{ rHeight , rHeight+'%'}}" width="{{ rWidth , rWidth+'%' }}">
+                <ListView items="{{ names }}"  >
+                    <ListView.itemTemplate> 
+                        <Label text="{{ $value }}" />
+                    </ListView.itemTemplate>
+                </ListView> 
+            </StackLayout> 
+        </StackLayout> 
+</Page>

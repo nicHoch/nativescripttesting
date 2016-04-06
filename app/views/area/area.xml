@@ -1,0 +1,34 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" navigatedTo="navigatedTo">
+     <Page.actionBar>
+    <ActionBar title="{{ title }}">
+     <ActionBar.titleView>
+        <StackLayout orientation="horizontal">
+          <Label text="{{ title }}" />
+          <ActivityIndicator busy="{{ isLoading }}" />
+        </StackLayout>
+      </ActionBar.titleView> 
+    </ActionBar>
+  </Page.actionBar>
+        <StackLayout>
+              
+            <Label text="Areas" />
+            <ListView id="areaLV" items="{{ areas }}" rowHeight="50" itemTap="loadNode">
+                 <ListView.itemTemplate>
+                    <StackLayout orientation="horizontal">
+                        <Label class="name" text="{{name}}" />
+                        <Label class="type" text="{{subType}}" />
+                    </StackLayout>
+                 </ListView.itemTemplate> 
+            </ListView>
+            <Label text="Routes" />
+            <ListView id="routeLV" items="{{ routes }}" rowHeight="50" itemTap="loadNode">
+                 <ListView.itemTemplate>
+                    <StackLayout orientation="horizontal" class="{{ type }}">
+                        <Label class="name" text="{{name}}" />
+                        <Label class="type" text="{{grade}}" />
+                        <Label class="type" text="{{stars , stars | toStars()}}" />
+                    </StackLayout>
+                 </ListView.itemTemplate> 
+            </ListView>
+        </StackLayout>
+</Page>   

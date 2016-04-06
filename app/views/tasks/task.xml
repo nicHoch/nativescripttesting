@@ -1,0 +1,43 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" xmlns:FAB="nativescript-floatingactionbutton">
+    <page.actionBar>
+        <action-bar title="Task: Pull detail"  />
+    </page.actionBar>
+    <ScrollView>
+    <GridLayout rows="auto, *">
+       <StackLayout row="1">     
+            <Label text="Name" />
+            <TextView text="{{ name }}" editable="false"/>
+             
+            <Label text="created"/>
+            <TextView  text="{{ created }}" editable="false"/>
+            
+            <Label text="Last Time"/>
+            <TextView text="{{ lastTS }}" editable="false"/>
+            
+            <Label text="Status" />
+            <Label text="{{ status }}" />
+            <WrapLayout orientation="horizontal">
+                <Image src="{{ status == 3 ? 'res://checked' : 'res://unchecked'}}" class="checkbox" width="20" height="20"/>
+                <Button text="{{ callback }}" tap="envokeCallBack" />
+            </WrapLayout>
+            <Label text="Endpoint" />
+            <TextView text="{{ endpoint }}" editable="false"/>
+            
+            <Label text="Response" />
+            <TextView text="{{ response, response | stringify() }}" editable="false" height="80"/>
+            
+            <Label text="ErrorReport" />
+            <ListView items="{{ error }}">
+                 <ListView.itemTemplate>
+                    <StackLayout>
+                        <Label text="{{date}}" />
+                        <TextView text="{{ error }}"  editable="false"/>
+                        <TextView text="{{ response }}"  editable="false"/>
+                    </StackLayout>
+                 </ListView.itemTemplate>
+            </ListView>
+           </StackLayout>    
+        <FAB:fab tap="delTask" rippleColor="#f1f1f1" class="fab-button" row="1"/>        
+    </GridLayout> 
+    </ScrollView> 
+</Page>   

@@ -2,19 +2,15 @@
   <DockLayout stretchLastChild="true" >
     <WebView dock="top" id="topowebview"  width="*" height="300"/>
     <StackLayout>
-    <StackLayout orientation="horizontal" id="loadtopos">
-      <Label text="App: load topo" />
-      <Button text="1" value="0" tap="loadtopo" id="loadtopos1"/>
-      <Button text="2" value="1" tap="loadtopo" id="loadtopos2"/>
-      <Button text="3" value="2" tap="loadtopo" id="loadtopos3"/>
-    </StackLayout>
-    <ListView items="{{ routes }}" id="routelist" itemLoading="onItemLoading" itemTap="onItemTap">
+    <Slider minValue="1" maxValue="3" value="{{ curTopo }}"  />
+    <ListView items="{{ routes }}" id="routelist" loaded="onLoadedLW" itemLoading="onItemLoading" itemTap="onItemTab">
       <ListView.itemTemplate>
-        <StackLayout orientation="horizontal">
-          <Label text="{{ name }}" width="100" height="40"/>
-          <Label text="{{ dif }}" width="100"/>
-          <Label text="{{ topo }}" />
-        </StackLayout>
+        <GridLayout columns="auto,*,*,40" rows="40">
+          <Label col="0" text="{{ name }}" width="100" tab="checkBoxTab"/>
+          <Label col="1" text="{{ dif }}" width="100"/>
+          <Label col="2" text="{{ topo }}" />
+          <Image col="3" tap="{{ checkBoxTab }}" src="{{ selected ? 'res://checked' : 'res://unchecked'}}" class="checkbox"/>
+        </GridLayout>
       </ListView.itemTemplate>
     </ListView>
     </StackLayout>

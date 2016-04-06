@@ -1,0 +1,24 @@
+#splitLeft {
+  padding: 0px;
+  margin: 0px;
+}
+
+#splitRight {
+  padding: 0px;
+  margin: 0px;
+}
+
+#splitter {
+  background-color: blue;
+  padding: 0px;
+  margin: 0px;
+  font-size: 5;
+  border-width: 0px;
+}
+
+#splitContainer {
+  padding: 0px;
+  margin: 0px;
+}
+
+

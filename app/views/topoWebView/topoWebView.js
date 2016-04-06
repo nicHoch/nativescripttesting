@@ -5,59 +5,84 @@ var webViewInterfaceModule = require('nativescript-webview-interface');
 var oWebViewInterface;
 var gestures = require("ui/gestures");
 var RouteListViewModel = require("../../shared/view-models/route-list-view-model");
-
+var Observable = require("data/observable").Observable;
+var ObservableArray = require("data/observable-array").ObservableArray;
 var itemsInView = [];
-var topoisloaded = -1;
+
+
 var items_visible = 10;
-var pageData = {
-    routes: [
-        { name: "R1" , dif: "6a", topo: []},
-        { name: "R2" , dif: "6b+", topo: [1]},
-        { name: "R3" , dif: "6c", topo: [1]},
-        { name: "R4" , dif: "6a", topo: [1]},
-        { name: "R5" , dif: "5a", topo: [1]},
-        { name: "R6" , dif: "4a", topo: [1,2]},
-        { name: "R7" , dif: "7b", topo: [1,2]},
-        { name: "R8" , dif: "6a+", topo: [2]},
-        { name: "R9" , dif: "6a", topo: [2]},
-        { name: "R10" , dif: "6c+", topo: [2]},
-        { name: "R11" , dif: "8a", topo: [2]},
-        { name: "R12" , dif: "9a", topo: []},
-        { name: "R13" , dif: "4b", topo: []},
-        { name: "R14" , dif: "1b", topo: [3]},
-        { name: "R15" , dif: "2b", topo: [3]},
-        { name: "R16" , dif: "3b", topo: [3]},
-        { name: "R17" , dif: "4b", topo: [3]},
-        { name: "R18" , dif: "5b", topo: [3]},
-        { name: "R19" , dif: "6b", topo: [3]}
-    ],
 
-    itemSelected :  { name: "sel" , dif: "2b"}
-};
 
-var pageDataVM = new RouteListViewModel(pageData);
+var routes = [
+    { id: 100, name: "R1" , dif: "6a", topo: [], selected: true},
+    { id: 101, name: "R2" , dif: "6b+", topo: [1], selected: false},
+    { id: 102, name: "R3" , dif: "6c", topo: [1], selected: true},
+    { id: 103, name: "R4" , dif: "6a", topo: [1], selected: false},
+    { id: 104, name: "R5" , dif: "5a", topo: [1], selected: false},
+    { id: 105, name: "R6" , dif: "4a", topo: [1,2], selected: false},
+    { id: 106, name: "R7" , dif: "7b", topo: [1,2], selected: false},
+    { id: 107, name: "R8" , dif: "6a+", topo: [1,2], selected: false},
+    { id: 108, name: "R9" , dif: "6a", topo: [2], selected: false},
+    { id: 109, name: "R10" , dif: "6c+", topo: [2], selected: false},
+    { id: 110, name: "R11" , dif: "8a", topo: [2], selected: false},
+    { id: 111, name: "R12" , dif: "9a", topo: [], selected: false},
+    { id: 112, name: "R13" , dif: "4b", topo: [], selected: false},
+    { id: 113, name: "R14" , dif: "1b", topo: [3], selected: false},
+    { id: 114, name: "R15" , dif: "2b", topo: [3], selected: false},
+    { id: 115, name: "R16" , dif: "3b", topo: [3], selected: false},
+    { id: 116, name: "R17" , dif: "4b", topo: [3], selected: false},
+    { id: 117, name: "R18" , dif: "5b", topo: [3], selected: false},
+    { id: 118, name: "R19" , dif: "6b", topo: [3], selected: false}];
+
+var routesWM = new ObservableArray(routes);
+
+var pageData = new Observable({
+    routes: routesWM,
+    curTopo: -1
+});
+
+
 
 var page;
 
 exports.loaded = function(args) {
     console.log("hello topoWebView");
     page = args.object;
-    page.bindingContext = pageDataVM;
-    setupWebViewInterface(page);
+    page.bindingContext = pageData;
+    setupWebViewInterface(page);              
+    
+    pageData.on(Observable.propertyChangeEvent, function(args) {
+        _loadtopo(pageData.get("curTopo"));    
+    });
+    
+    pageData.set("curTopo",1);
+    
+    
 };
+
 
 
 
 exports.onItemLoading = function(args) {
-    console.log("onItemLoading: "+pageData.routes[args.index].name);
 
     var newsize = itemsInView.unshift(args.index);
     if (newsize > 100) itemsInView = itemsInView.slice(0,99);
-    items_visible = Math.ceil(args.object.getMeasuredHeight()/args.view.getMeasuredHeight());
-    updateTopos();
+    var new_items_visible = Math.ceil(args.object.getMeasuredHeight()/args.view.getMeasuredHeight());
+    if (isFinite(new_items_visible) && new_items_visible > 0) {
+        items_visible = new_items_visible
+        updateTopos();
+    }
+
 };
 
+exports.onLoadedLW = function(args) {
+    //updateTopos();
+    console.log("LW loaded");
+};
+
+
 function updateTopos() {
+
     var lastitemsInView = itemsInView.slice(0,items_visible);
     var min = Math.min.apply(null, lastitemsInView);
     var max = Math.max.apply(null, lastitemsInView);
@@ -65,39 +90,62 @@ function updateTopos() {
     //max++;
 
     min=Math.max(min,0);
-    max=Math.min(pageData.routes.length-1,max);
+    max=Math.min(routes.length-1,max);
 
-    console.log("items: " + items_visible + " < "+min+","+max+">");
+    //console.log("items: " + items_visible + " < "+min+","+max+">");
 
     toposinlist = {}
     for (i = min; i <= max; i++) {
-        pageData.routes[i].topo.forEach(function(entry) {
+        routes[i].topo.forEach(function(entry) {
             toposinlist[entry]=true;
         });
     }
     var toposinlist = Object.keys(toposinlist).sort();
-    console.log("Topos: "+toposinlist);
-    page.getViewById('loadtopos1').isEnabled = false;
-    page.getViewById('loadtopos2').isEnabled = false;
-    page.getViewById('loadtopos3').isEnabled = false;
 
+    var found = false;
     toposinlist.forEach(function(topo) {
         var topobutton = page.getViewById('loadtopos'+topo);
-        topobutton.isEnabled = true;
+        //topobutton.isEnabled = true;
+        if (topo==pageData.get("curTopo")) found = true;
     });
 
-    if (toposinlist.indexOf(topoisloaded)<0) {
-        _loadtopo(toposinlist[0])
+    //console.log("Topos: "+toposinlist);
+    //console.log("topoisloaded: "+topoisloaded);
+    //console.log("IN?: "+found);
+    if (!found) {
+        pageData.set("curTopo",toposinlist[0]);
     }
 
 }
 
-exports.onItemTap = function(args) {
-    console.log("onItemTap: "+args.index);
-    console.log(pageData.routes[args.index].name);
-    pageDataVM.itemSelected = pageData.routes[args.index];
+exports.btnLoaded = function (args) {
+    var btn = args.object;
+    btn.android.setFocusable(false);
 };
 
+exports.onItemTab = function(args) {
+    console.log("onItemTap: "+args.index);
+
+
+
+    routes[args.index].selected = !routes[args.index].selected;
+    routesWM.setItem(args.index,routes[args.index]);
+
+    //routesWM.getItem(args.index).selected = !routesWM.getItem(args.index).selected;
+
+    oWebViewInterface.emit('selectNode', routes[args.index]);
+    //page.getViewById('routelist').refresh();
+
+
+    console.log("ENDE onItemTap: "+args.index);
+};
+
+//exports.checkBoxTab = function(args) {
+//    console.log("checkBoxTab: "+args.index);
+//    pageData.routes[args.index].selected = !pageData.routes[args.index].selected;
+//
+//};
+ 
 
 exports.loadtopo = function(args) {
     var topo = args.object.text;
@@ -106,9 +154,14 @@ exports.loadtopo = function(args) {
 
 function _loadtopo(topo) {
     console.log("pushtoweb Topo: "+topo);
-    var td = require("../../www/topodata.json");
-    oWebViewInterface.emit('loadTopo', td.topos[topo-1]);
+    //var td = require("../../www/topodata.json");
+    var topodata =  global.theCragDB.topos.by('id', topo);
+    oWebViewInterface.emit('loadTopo', topodata);
     topoisloaded = topo;
+
+    routes.forEach(function(node) {
+        oWebViewInterface.emit('selectNode', node);
+    });
 }
 
 function setupWebViewInterface(page){
@@ -125,7 +178,8 @@ function setupWebViewInterface(page){
         }
         console.log(message);
 
-        updateTopos();
+        _loadtopo(1);
+
     });
 
     webView.src = '~/www/topo.html';

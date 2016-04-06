@@ -7,6 +7,18 @@ var imgtopo = document.getElementById('imgtopo');
 var divcanvas = document.getElementById('divcanvas');
 
 function init(){
+    oWebViewInterface.on('selectNode', function(data) {
+
+        if (typeof divphototopo !== 'undefined') {
+            console.log("SelectNode: "+data.id+" > "+data.selected);
+            if (data.selected) {
+                $(divphototopo).phototopo('select',data.id);
+            } else {
+                $(divphototopo).phototopo('deselect',data.id);
+            }
+        }
+    });
+
     oWebViewInterface.on('loadTopo', function(topo) {
         jQuery(divphototopo).removeData(); // remove topo internal data
         PhotoTopo.prototype.shared.topos = []; // clear page topo cache
